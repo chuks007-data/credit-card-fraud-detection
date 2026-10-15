@@ -31,12 +31,12 @@ This reframes fraud detection as a **cost optimization problem**, not a classifi
 ## Approach
 
 1. **EDA**: confirmed extreme class imbalance, analyzed amount and hour-of-day patterns
-2. **Cleaning**: removed 1,081 duplicate rows (19 were fraud — documented as a judgment call; could represent repeated attacks rather than data errors)
+2. **Cleaning**: removed 1,081 duplicate rows (19 were fraud and documented as a judgment call; could represent repeated attacks rather than data errors)
 3. **Feature engineering**
    - `Is_night`: flag for transactions between 11pm–5am. **Night fraud rate was 2.7× higher** (0.38% vs 0.14%)
    - `Amount_deviation` : per-hour z-score of transaction amount
    - `Txn_count_last_hour`: velocity proxy
-4. **Validation** — **time-based 70/30 split** (not random), because fraud patterns drift over time
+4. **Validation**; **time-based 70/30 split** (not random), because fraud patterns drift over time
 5. **Models**: Logistic Regression (baseline) vs XGBoost
 6. **Threshold tuning**: cost-based optimization ($200 per missed fraud, $5 per review)
 7. **Explainability**: SHAP for global feature importance and per-alert explanation
@@ -69,7 +69,7 @@ Every alert is accompanied by a SHAP explanation, so analysts can justify decisi
 
 ![SHAP force plot for one fraud alert](outputs/09_shap_single_alert.png)
 
-**Top SHAP features:** V14, V4, V12, V10 (PCA features) — plus **`Amount_scaled`** and **`Amount_deviation`** (engineered), confirming the new features contribute to model decisions.
+**Top SHAP features:** V14, V4, V12, V10 (PCA features) plus **`Amount_scaled`** and **`Amount_deviation`** (engineered), confirming the new features contribute to model decisions.
 
 ---
 
@@ -88,7 +88,7 @@ Every alert is accompanied by a SHAP explanation, so analysts can justify decisi
 - **Velocity is a weak proxy**: without customer IDs, rolling per-card windows aren't possible
 - `scale_pos_weight` **distorts raw probabilities**: cost-based threshold corrects the decision, but probabilities aren't calibrated
 - **19 duplicate frauds were dropped**: could represent repeated attacks rather than data errors; flagged as a judgment call
-- Logistic regression baseline showed a **convergence warning** at 2,000 iterations — noted but acceptable for a baseline model
+- Logistic regression baseline showed a **convergence warning** at 2,000 iterations noted but acceptable for a baseline model
 
 ---
 
