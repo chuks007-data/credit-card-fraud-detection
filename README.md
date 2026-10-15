@@ -24,7 +24,7 @@ This reframes fraud detection as a **cost optimization problem**, not a classifi
 
 ![Class imbalance — fraud is only 0.17% of transactions](outputs/01_class_imbalance.png)
 
-> A "predict-all-legitimate" model achieves **99.83% accuracy** and catches **zero fraud**. This is why accuracy is useless here — PR-AUC, recall at low FPR, and cost-based thresholds are the correct metrics.
+> A "predict-all-legitimate" model achieves **99.83% accuracy** and catches **zero fraud**. This is why accuracy is useless here; PR-AUC, recall at low FPR, and cost-based thresholds are the correct metrics.
 
 ---
 
@@ -51,7 +51,7 @@ This reframes fraud detection as a **cost optimization problem**, not a classifi
 | **XGBoost (cost-optimal)** | **82.2%** | **151** | **$4,555** |
 | **Δ** | −7.5 pts | **−95%** | **−72.8%** |
 
-The cost curve below shows why **threshold selection matters more than model choice** — the optimal operating point cuts expected cost by **73%** versus the logistic baseline.
+The cost curve below shows why **threshold selection matters more than model choice**; the optimal operating point cuts expected cost by **73%** versus the logistic baseline.
 
 ![Expected cost vs decision threshold](outputs/05_cost_threshold.png)
 
